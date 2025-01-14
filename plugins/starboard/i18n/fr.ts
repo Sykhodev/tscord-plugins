@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { BaseTranslation } from '@i18n'
+import type { BaseTranslation } from '@/i18n'
 
 const fr = {
     STARBOARD: {

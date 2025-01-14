@@ -1,17 +1,17 @@
-import { Entity, PrimaryKey, Property, EntityRepositoryType, ManyToOne } from '@mikro-orm/core'
+import { Entity, PrimaryKey, Property, EntityRepositoryType, ManyToOne, Loaded } from '@mikro-orm/core'
 import { EntityRepository } from '@mikro-orm/sqlite'
 
-import { CustomBaseEntity} from '@entities'
+import { CustomBaseEntity} from '@/entities'
 import { StarBoard } from './StarBoard'
 
 // ===========================================
 // ================= Entity ==================
 // ===========================================
 
-@Entity({ customRepository: () => StarBoardMessageRepository })
+@Entity()
 export class StarBoardMessage extends CustomBaseEntity {
 
-    [EntityRepositoryType]?: StarBoardMessageRepository
+    [EntityRepositoryType] = StarBoardMessageRepository
 
     @PrimaryKey({ autoincrement: false })
     srcMessage! :string
@@ -34,6 +34,10 @@ export class StarBoardMessage extends CustomBaseEntity {
 // =========== Custom Repository =============
 // ===========================================
 
-export class StarBoardMessageRepository extends EntityRepository<StarBoardMessage> { 
+export class StarBoardMessageRepository extends EntityRepository<StarBoardMessage> {
+	static getEntityManager: any
+	persistAndFlush(arg0: Loaded<StarBoardMessage, never, "*" | "starboardChannel", never>[]) {
+		throw new Error('Method not implemented.')
+	} 
 
 }

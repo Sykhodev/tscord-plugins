@@ -4,8 +4,8 @@ import { injectable } from 'tsyringe'
 import { Loaded } from "@mikro-orm/core"
 import { ButtonBuilder, ButtonStyle, EmbedBuilder, MessageReaction, PartialMessageReaction, TextChannel } from 'discord.js'
 
-import { Discord, OnCustom } from '@decorators'
-import { Database } from '@services'
+import { Discord, OnCustom } from '@/decorators'
+import { Database } from '@/services'
 import { StarBoard, StarBoardMessage } from '../../entities'
 
 @Discord()
@@ -42,7 +42,7 @@ export default class newStarEvent {
 
         let embed = new EmbedBuilder()
             .setAuthor({
-                name: reaction.message.author!.username + "#" + reaction.message.author!.discriminator,
+                name: reaction.message.author!.username,
                 iconURL: reaction.message.author!.avatarURL()!
             })
             .setColor("#FFD700")
@@ -83,7 +83,7 @@ export default class newStarEvent {
         newStarMessage.starboardMessage = newStarMessageDiscord.id
         newStarMessage.starCount = reaction.message.reactions.cache.get(chanStars.emoji)!.count
         newStarMessage.starboard = chanStars
-        await starMessageRepo.persistAndFlush(newStarMessage)
+        await starMessageRepo.getEntityManager().persistAndFlush(newStarMessage)
         this.db.em.clearCache("star_message_" + reaction.message.id)
     }
 }

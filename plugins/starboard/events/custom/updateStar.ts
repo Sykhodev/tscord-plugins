@@ -3,8 +3,8 @@ import { injectable } from 'tsyringe'
 import { Loaded } from "@mikro-orm/core"
 import { MessageReaction, PartialMessageReaction, TextChannel } from "discord.js"
 
-import { Database } from '@services'
-import { Discord, OnCustom } from '@decorators'
+import { Database } from '@/services'
+import { Discord, OnCustom } from '@/decorators'
 import { StarBoard, StarBoardMessage } from '../../entities'
 
 @Discord()
@@ -49,7 +49,7 @@ export default class updateStarEvent {
             starMessage.starCount = reaction.message.reactions.cache.get(chanStars.emoji)!.count
         }
 
-        await starMessageRepo.persistAndFlush(starMessage)
+        await starMessageRepo.getEntityManager().persistAndFlush(starMessage)
         this.db.em.clearCache("star_message_" + reaction.message.id)
     }
 

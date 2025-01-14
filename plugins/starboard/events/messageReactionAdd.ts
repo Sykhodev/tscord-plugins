@@ -1,9 +1,9 @@
 import { injectable } from "tsyringe";
 import { Client, ArgsOf } from "discordx"
 
-import { Discord, On } from "@decorators"
-import { Database, EventManager } from "@services"
-import { resolveDependency } from "@utils/functions"
+import { Discord, On } from "@/decorators"
+import { Database, EventManager } from "@/services"
+import { resolveDependency } from "@/utils/functions"
 import { StarBoard, StarBoardMessage } from "../entities"
 
 @Discord()

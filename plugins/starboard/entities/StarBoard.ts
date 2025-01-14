@@ -1,16 +1,17 @@
 import { Entity, PrimaryKey, Property, EntityRepositoryType, OneToMany, IntegerType } from '@mikro-orm/core'
 import { EntityRepository } from '@mikro-orm/sqlite'
 
-import { CustomBaseEntity } from '@entities'
+import { CustomBaseEntity } from '@/entities'
 
 // ===========================================
 // ================= Entity ==================
 // ===========================================
 
-@Entity({ customRepository: () => StarBoardRepository })
+@Entity()
 export class StarBoard extends CustomBaseEntity {
-
     [EntityRepositoryType]?: StarBoardRepository
+
+   // [EntityRepositoryType]?: StarBoardRepository
 
     @PrimaryKey({ autoincrement: false })
     guildId!: string
@@ -29,6 +30,9 @@ export class StarBoard extends CustomBaseEntity {
 // =========== Custom Repository =============
 // ===========================================
 
-export class StarBoardRepository extends EntityRepository<StarBoard> { 
+export class StarBoardRepository extends EntityRepository<StarBoard> {
+	persistAndFlush(starboard: StarBoard) {
+		throw new Error('Method not implemented.')
+	} 
 
 }
